@@ -22,7 +22,10 @@ class DataLoader(object):
         np.random.seed(1)
 
     def shuffle(self):
-        """Shuffles the indices in self.indices."""
+        """Shuffles the indices in self.indices.
+        """
+
+        # TODO: Use np.random.shuffle() to shuffles the indices in self.indices
         np.random.shuffle(self.indices)
 
     def get_batch(self, mode='train'):
@@ -43,22 +46,27 @@ class DataLoader(object):
         X_batch = []
         y_batch = []
 
-        # If mode is 'train', shuffle the indices first
+        # TODO: If mode is set to `train`, shuffle the indices first using
+        # self.shuffle().
         if mode == 'train':
             self.shuffle()
         elif mode == 'test':
-            # If mode is 'test', do not shuffle, keep indices in order
             self.indices = np.array([i for i in range(self.X.shape[0])])
 
         # The loop that will iterate from 0 to the number of instances with
         # step equal to self.batch_size
         for i in range(0, len(self.indices), self.batch_size):
-            
-            # Check if we can still get self.batch_size from the remaining indices
+
+            # TODO: Check if we can still get self.batch_size from the
+            # remaining indices starting from index i. Edit the condition
+            # below.
             if i + self.batch_size <= len(self.indices):
                 indices = self.indices[i:i + self.batch_size]
+
+            # TODO: Else, just get the remaining indices from index i until the
+            # last element in the list. Edit the statement inside the else
+            # block.
             else:
-                # If not, just get the remaining indices
                 indices = self.indices[i:]
 
             X_batch.append(self.X[indices])
